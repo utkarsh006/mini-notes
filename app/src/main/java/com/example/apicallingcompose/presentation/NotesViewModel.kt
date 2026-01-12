@@ -3,6 +3,7 @@ package com.example.apicallingcompose.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apicallingcompose.data.Note
+import com.example.apicallingcompose.data.NoteStatus
 import com.example.apicallingcompose.domain.usecases.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,13 +24,14 @@ class NotesViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    fun addNote(title: String, content: String) {
+    fun addNote(title: String, content: String, status: NoteStatus = NoteStatus.NOT_STARTED) {
         viewModelScope.launch {
             try {
                 val note = Note(
                     id = UUID.randomUUID().toString(),
                     title = title.trim(),
-                    content = content.trim()
+                    content = content.trim(),
+                    status = status
                 )
                 noteUseCases.addNote(note)
             } catch (e: Exception) {

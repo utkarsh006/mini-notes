@@ -28,7 +28,7 @@ object AppModule {
             app,
             NoteDatabase::class.java,
             "notes_db"
-        ).build()
+        ).addMigrations(NoteDatabase.MIGRATION_1_2).build()
     }
 
     @Provides

@@ -17,3 +17,15 @@ class DateTimeConverters {
         return date?.format(formatter)
     }
 }
+
+class NoteStatusConverters {
+    @TypeConverter
+    fun fromNoteStatus(value: String?): NoteStatus {
+        return value?.let { NoteStatus.valueOf(it) } ?: NoteStatus.NOT_STARTED
+    }
+
+    @TypeConverter
+    fun noteStatusToString(status: NoteStatus?): String {
+        return status?.name ?: NoteStatus.NOT_STARTED.name
+    }
+}
